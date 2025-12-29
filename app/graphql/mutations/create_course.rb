@@ -8,7 +8,7 @@ module Mutations
 
     def resolve(title:, description: nil)
       
-      course = school.courses.build(title: title, description: description)
+      course = Current.school.courses.build(title: title, description: description)
 
       if course.save
         { course: course, errors: [] }

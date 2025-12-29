@@ -36,3 +36,4 @@
 
 # Ignore temporary test output
 test_output*.txt
+postman_collection.json

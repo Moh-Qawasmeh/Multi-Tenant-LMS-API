@@ -12,7 +12,10 @@ class CurrentSchoolMiddleware
     
 
     # If running on localhost with no subdomain, treat it as 'localhost' subdomain scope
-    if request.host.end_with?('.localhost')
+    # ALLOW OVERRIDE VIA HEADER FOR TESTING
+    if request.headers['X-Subdomain'].present?
+      subdomain = request.headers['X-Subdomain']
+    elsif request.host.end_with?('.localhost')
       subdomain = request.host.split('.').first
     elsif subdomain.blank? && request.host == 'localhost'
       subdomain = 'localhost'
