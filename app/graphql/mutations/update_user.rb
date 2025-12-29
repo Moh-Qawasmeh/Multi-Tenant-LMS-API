@@ -31,6 +31,16 @@ module Mutations
       updates[:role] = role if role && is_admin
       updates[:active] = active if !active.nil? && is_admin
 
+      # Field-level permission check for non-admins
+      if !is_admin
+        allowed_fields = [:name, :password]
+        requested_fields = updates.keys
+        forbidden_fields = requested_fields - allowed_fields
+        if forbidden_fields.any?
+           return { user: nil, errors: ["Unauthorized to update fields: #{forbidden_fields.join(', ')}"] }
+        end
+      end
+
       if user.update(updates)
         { user: user, errors: [] }
       else

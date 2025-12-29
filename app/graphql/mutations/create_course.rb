@@ -8,6 +8,8 @@ module Mutations
 
     def resolve(title:, description: nil)
       
+      return { course: nil, errors: ["Unauthorized"] } unless context[:current_ability].can?(:create, Course)
+      
       course = Current.school.courses.build(title: title, description: description)
 
       if course.save

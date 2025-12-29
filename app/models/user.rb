@@ -10,7 +10,7 @@ class User < ApplicationRecord
   has_many :enrollments, dependent: :destroy
   has_many :enrolled_courses, through: :enrollments, source: :course
 
-  enum role: { user: 0, instructor: 1, admin: 2 }
+  enum role: { admin: 0, instructor: 1, user: 2 }
 
   validates :email, uniqueness: { scope: :school_id }
   validates :password, length: { minimum: 8 }, if: :password_required?

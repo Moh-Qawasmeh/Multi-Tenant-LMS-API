@@ -9,6 +9,9 @@ module Types
     field :school_id, Integer
     field :name, String
     field :role, Integer
+    def role
+      object.role_before_type_cast
+    end
     field :active, Boolean
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
