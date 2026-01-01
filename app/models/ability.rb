@@ -22,6 +22,7 @@ class Ability
       can :read, User, id: user.id
       can :update, User, id: user.id
       can :read, Enrollment, user_id: user.id
+      can :create, Enrollment, user_id: user.id
     end
   end
 end
